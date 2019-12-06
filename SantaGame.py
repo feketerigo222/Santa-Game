@@ -6,6 +6,7 @@ import SantaGameFight
 santa_x = 1
 santa_y = 0
 santa = SantaGameFight.Santa()
+santa_direction = 0
 
 # 初期フラグ
 flag_ax = False
@@ -15,7 +16,7 @@ flag_emergency = False
 # マップ描画
 
 
-def draw_map():
+def draw_map(santa_direction):
     for y in range(0, MAX_HEIGHT):
         for x in range(0, MAX_WIDTH):
             p = map_data[y][x]
@@ -25,12 +26,12 @@ def draw_map():
 
     # サンタ表示
     canvas.create_image(santa_x * 64 + 31, santa_y * 64 +
-                        31, image=santaImages[0], tag="santa")
+                        31, image=santaImages[santa_direction], tag="santa")
 
 # 移動先のチェック
 
 
-def check_move(x, y):
+def check_move(x, y, santa_direction):
     global santa_x, santa_y, flag_ax, flag_money, flag_toy, flag_ax
     if x >= 0 and x < MAX_WIDTH and y >= 0 and y < MAX_HEIGHT:
         p = map_data[y][x]
@@ -50,26 +51,26 @@ def check_move(x, y):
             flag_money = True
             map_data[y][x] = 0
             canvas.delete("all")
-            draw_map()
+            draw_map(santa_direction)
         elif p == 5:
             flag_ax = True
             map_data[y][x] = 0
             canvas.delete("all")
-            draw_map()
+            draw_map(santa_direction)
         elif p == 6:
             if flag_money == True:
                 flag_toy = True
                 # おもちゃを買ったのコメント
                 map_data[y][x] = 0
                 canvas.delete("all")
-                draw_map()
+                draw_map(santa_direction)
             elif flag_ax == True:
                 flag_toy = True
                 flag_emergency = True
                 # おもちゃを強盗したのコメント
                 map_data[y][x] = 1
                 canvas.delete("all")
-                draw_map()
+                draw_map(santa_direction)
             else:
                 # お金が無いのコメント
                 return
@@ -79,31 +80,39 @@ def check_move(x, y):
         santa_x = x
         santa_y = y
         canvas.delete("all")
-        draw_map()
+        draw_map(santa_direction)
 
 # 上ボタンが押された
 
 
 def click_button_up():
-    check_move(santa_x, santa_y-1)
+    global santa_direction
+    santa_direction = 3
+    check_move(santa_x, santa_y-1, santa_direction)
 
 # 下ボタンが押された
 
 
 def click_button_down():
-    check_move(santa_x, santa_y+1)
+    global santa_direction
+    santa_direction = 0
+    check_move(santa_x, santa_y+1, santa_direction)
 
 # 左ボタンが押された
 
 
 def click_button_left():
-    check_move(santa_x-1, santa_y)
+    global santa_direction
+    santa_direction = 2
+    check_move(santa_x-1, santa_y, santa_direction)
 
 # 右ボタンが押された
 
 
 def click_button_right():
-    check_move(santa_x+1, santa_y)
+    global santa_direction
+    santa_direction = 1
+    check_move(santa_x+1, santa_y, santa_direction)
 
 # エンディング表示
 
@@ -183,6 +192,6 @@ map_data = [[2, 0, 2, 2, 2, 2, 2, 2, 2, 2],
 # 戦闘画面の準備
 fightmanager = SantaGameFight.FightManager()
 
-draw_map()
+draw_map(santa_direction)
 
 root.mainloop()
