@@ -32,7 +32,7 @@ class FightManager:
 
     # 戦闘開始
 
-    def fight_start(self, mapdata, x, y, santa):
+    def fight_start(self, mapdata, x, y, santa, flag_emergency):
         self.dialog.place(x=10, y=10)
         self.map_data = mapdata
         self.santa_x = x
@@ -42,11 +42,17 @@ class FightManager:
         p = self.map_data[y][x]
         self.canvas.delete("all")
         self.canvas.create_rectangle(0, 0, 620, 434, fill="black")
-        self.canvas.create_image(180, 160, image=self.images[p-8])
+        if flag_emergency == True and p == 8:
+            self.canvas.create_image(180, 160, image=self.images[2])
+        else:
+            self.canvas.create_image(180, 160, image=self.images[p-8])
         self.label["text"] = ""
-        # 敵ののオブジェクトを作成
+        # 敵のオブジェクトを作成
         if p == 8:
             self.enemy = Police()
+            # 不審者フラグが立ってれば攻撃力3倍
+            if flag_emergency == True:
+                self.enemy.atk *= 3
         elif p == 9:
             self.enemy = Yakuza()
         self.label["text"] = self.enemy.name + "が現れた"
@@ -90,7 +96,7 @@ class FightManager:
         self.dialog.update()
         time.sleep(2)  # 2秒待ち
         labeltext = labeltext + \
-            "\n敵のの残り体力は" + str(self.enemy.hp)
+            "\n敵の残り体力は" + str(self.enemy.hp)
         self.label["text"] = labeltext
         self.dialog.update()
         if self.enemy.hp < 1:
@@ -103,7 +109,7 @@ class FightManager:
         time.sleep(2)  # 2秒待ち
         santa_dfs = self.santa.get_dfs()
         if random.random() < 0.2:
-            labeltext = labeltext + "\n\n敵はは力をためた"
+            labeltext = labeltext + "\n\n敵は力をためた"
             self.enemy.reserve()
         else:
             labeltext = labeltext + "\n\n敵の攻撃"
@@ -134,6 +140,12 @@ class FightManager:
             "\nサンタの残り体力は" + str(self.santa.hp)
         self.label["text"] = labeltext
         self.dialog.update()
+        if self.santa.hp < 1:
+            time.sleep(2)
+            self.fight_lose()
+        else:
+            self.fbutton["state"] = "normal"
+            self.rbutton["state"] = "normal"
     # 勝利
 
     def fight_win(self):

@@ -8,6 +8,7 @@ santa_y = 0
 santa = SantaGameFight.Santa()
 santa_direction = 0
 
+
 # 初期フラグ
 flag_ax = False
 flag_money = False
@@ -32,7 +33,7 @@ def draw_map(santa_direction):
 
 
 def check_move(x, y, santa_direction):
-    global santa_x, santa_y, flag_ax, flag_money, flag_toy, flag_ax
+    global santa_x, santa_y, flag_ax, flag_money, flag_toy, flag_ax, flag_emergency
     if x >= 0 and x < MAX_WIDTH and y >= 0 and y < MAX_HEIGHT:
         p = map_data[y][x]
         if p == 2:
@@ -54,6 +55,7 @@ def check_move(x, y, santa_direction):
             draw_map(santa_direction)
         elif p == 5:
             flag_ax = True
+            santa.atk *= 3
             map_data[y][x] = 0
             canvas.delete("all")
             draw_map(santa_direction)
@@ -76,7 +78,7 @@ def check_move(x, y, santa_direction):
                 return
 
         elif p >= 8:
-            fightmanager.fight_start(map_data, x, y, santa)
+            fightmanager.fight_start(map_data, x, y, santa, flag_emergency)
         santa_x = x
         santa_y = y
         canvas.delete("all")
