@@ -32,9 +32,9 @@ class FightManager:
 
     # 戦闘開始
 
-    def fight_start(self, mapdata, x, y, santa, flag_emergency):
+    def fight_start(self, map_data, x, y, santa, flag_emergency):
         self.dialog.place(x=10, y=10)
-        self.map_data = mapdata
+        self.map_data = map_data
         self.santa_x = x
         self.santa_y = y
         self.santa = santa
@@ -73,7 +73,7 @@ class FightManager:
         self.do_turn(-1)
 
     # 戦闘処理
-    def do_turn(self, santa_atk):
+    def do_turn(self, santa_atk, flag_money):
         # 主人公のターン
         enemy_dfs = self.enemy.get_dfs()
         if santa_atk < 0:
@@ -83,7 +83,7 @@ class FightManager:
             self.label["text"] = labeltext
             self.dialog.update()
             # サンタの攻撃の結果表示
-            time.sleep(2)  # 2秒待ち
+            time.sleep(1)  # 2秒待ち
             dmg = santa_atk - enemy_dfs
             self.enemy.culc_hp(santa_atk, enemy_dfs)
             if dmg <= 0:
@@ -94,21 +94,25 @@ class FightManager:
         # ラベル更新、残り体力表示
         self.label["text"] = labeltext
         self.dialog.update()
-        time.sleep(2)  # 2秒待ち
+        time.sleep(1)  # 2秒待ち
         labeltext = labeltext + \
             "\n敵の残り体力は" + str(self.enemy.hp)
         self.label["text"] = labeltext
         self.dialog.update()
         if self.enemy.hp < 1:
-            time.sleep(2)  # 2秒待ち
+            time.sleep(1)  # 2秒待ち
             self.fbutton["state"] = "normal"
             self.rbutton["state"] = "normal"
             self.fight_win()
             return
         # 敵のターン
-        time.sleep(2)  # 2秒待ち
+        time.sleep(1)  # 2秒待ち
         santa_dfs = self.santa.get_dfs()
-        if random.random() < 0.2:
+        enemy_name = self.enemy.get_name()
+        if enemy_name == "ヤクザ" and flag_money == True:
+            labeltext = labeltext + "\n\n敵はカツアゲをしてきた" + "\nお金を失った"
+            flag_money = False
+        elif random.random() < 0.2:
             labeltext = labeltext + "\n\n敵は力をためた"
             self.enemy.reserve()
         else:
@@ -116,14 +120,14 @@ class FightManager:
             self.label["text"] = labeltext
             self.dialog.update()
             if self.santa.hp < 1:
-                time.sleep(2)  # 2秒待ち
+                time.sleep(1)  # 2秒待ち
                 self.fight_lose()
             else:
                 #　ボタンを有効化して次のターンへ
                 self.fbutton["state"] = "normal"
                 self.rbutton["state"] = "normal"
             # 敵の攻撃の結果表示
-            time.sleep(2)  # 2秒待ち
+            time.sleep(1)  # 2秒待ち
             enemy_atk = self.enemy.get_atk()
             dmg = enemy_atk - santa_dfs
             self.santa.culc_hp(enemy_atk, santa_dfs)
@@ -135,13 +139,13 @@ class FightManager:
         # ラベル更新、残り体力表示
         self.label["text"] = labeltext
         self.dialog.update()
-        time.sleep(2)  # 2秒待ち
+        time.sleep(1)  # 2秒待ち
         labeltext = labeltext + \
             "\nサンタの残り体力は" + str(self.santa.hp)
         self.label["text"] = labeltext
         self.dialog.update()
         if self.santa.hp < 1:
-            time.sleep(2)
+            time.sleep(1)
             self.fight_lose()
         else:
             self.fbutton["state"] = "normal"
@@ -196,6 +200,10 @@ class Character:
         if self.hp < 1:
             self.hp = 0
         return self.hp
+
+    # # 名前を求める
+    # def get_name(self):
+    #     return self.name
 
 # サンタクラス
 
