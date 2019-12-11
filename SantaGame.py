@@ -27,6 +27,7 @@ def draw_map(santa_direction):
     # サンタ表示
     canvas.create_image(santa_x * 64 + 31, santa_y * 64 +
                         31, image=santaImages[santa_direction], tag="santa")
+    # print(flag_money)
 
 # 移動先のチェック
 
@@ -77,10 +78,12 @@ def check_move(x, y, santa_direction):
                 return
 
         elif p >= 8:
-            fightmanager.fight_start(map_data, x, y, santa, flag_emergency)
+            flag_money = fightmanager.fight_start(
+                map_data, x, y, santa, flag_emergency, flag_money)
         santa_x = x
         santa_y = y
         canvas.delete("all")
+        # print(flag_money)
         draw_map(santa_direction)
 
 # 上ボタンが押された
@@ -186,7 +189,7 @@ map_data = [[2, 0, 2, 2, 2, 2, 2, 2, 2, 2],
             [2, 0, 4, 2, 2, 1, 0, 1, 6, 2],
             [2, 0, 0, 5, 0, 0, 0, 1, 0, 2],
             [2, 0, 0, 0, 0, 1, 1, 1, 8, 2],
-            [2, 0, 9, 0, 0, 0, 5, 0, 0, 2],
+            [2, 0, 9, 0, 9, 0, 5, 0, 0, 2],
             [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
 
 
