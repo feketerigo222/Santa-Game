@@ -119,7 +119,6 @@ class FightManager:
         if enemy_name == "ヤクザ" and flag_money == True:
             labeltext = labeltext + "\n\n敵はカツアゲをしてきた" + "\nお金を失った"
             flag_money = False
-            # return self.flag_money
         elif random.random() < 0.2:
             labeltext = labeltext + "\n\n敵は力をためた"
             self.enemy.reserve()

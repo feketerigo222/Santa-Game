@@ -23,7 +23,6 @@ def draw_map(santa_direction):
     # サンタ表示
     canvas.create_image(santa_x * 64 + 31, santa_y * 64 +
                         31, image=santaImages[santa_direction], tag="santa")
-    print(fight.flag_money)
 
 # 移動先のチェック
 
@@ -79,7 +78,6 @@ def check_move(x, y, santa_direction):
         santa_x = x
         santa_y = y
         canvas.delete("all")
-        # print(flag_money)
         draw_map(santa_direction)
 
 # 上ボタンが押された
