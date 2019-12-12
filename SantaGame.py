@@ -1,18 +1,14 @@
 import tkinter
-import SantaGameFight
+import SantaGameFight as fight
 
 
 # サンタの位置
 santa_x = 1
 santa_y = 0
-santa = SantaGameFight.Santa()
+santa = fight.Santa()
 santa_direction = 0
 
-# 初期フラグ
-flag_ax = False
-flag_money = False
-flag_toy = False
-flag_emergency = False
+
 # マップ描画
 
 
@@ -32,41 +28,42 @@ def draw_map(santa_direction):
 
 
 def check_move(x, y, santa_direction):
-    global santa_x, santa_y, flag_ax, flag_money, flag_toy, flag_ax
+    global santa_x, santa_y
     if x >= 0 and x < MAX_WIDTH and y >= 0 and y < MAX_HEIGHT:
         p = map_data[y][x]
         if p == 2:
             return
         elif p == 3:
-            if flag_toy == False:
+            if fight.flag_toy == False:
                 # おもちゃがないのコメント
                 return
-            elif flag_ax == False:
+            elif fight.flag_ax == False:
                 # 家に入れないのコメント
                 return
             else:
                 ending()
                 return
         elif p == 4:
-            flag_money = True
+            fight.flag_money = True
             map_data[y][x] = 0
             canvas.delete("all")
             draw_map(santa_direction)
         elif p == 5:
-            flag_ax = True
+            fight.flag_ax = True
+            santa.atk *= 3
             map_data[y][x] = 0
             canvas.delete("all")
             draw_map(santa_direction)
         elif p == 6:
-            if flag_money == True:
-                flag_toy = True
+            if fight.flag_money == True:
+                fight.flag_toy = True
                 # おもちゃを買ったのコメント
                 map_data[y][x] = 0
                 canvas.delete("all")
                 draw_map(santa_direction)
-            elif flag_ax == True:
-                flag_toy = True
-                flag_emergency = True
+            elif fight.flag_ax == True:
+                fight.flag_toy = True
+                fight.flag_emergency = True
                 # おもちゃを強盗したのコメント
                 map_data[y][x] = 1
                 canvas.delete("all")
@@ -76,7 +73,8 @@ def check_move(x, y, santa_direction):
                 return
 
         elif p >= 8:
-            fightmanager.fight_start(map_data, x, y, santa)
+            fightmanager.fight_start(
+                map_data, x, y, santa)
         santa_x = x
         santa_y = y
         canvas.delete("all")
@@ -185,12 +183,12 @@ map_data = [[2, 0, 2, 2, 2, 2, 2, 2, 2, 2],
             [2, 0, 4, 2, 2, 1, 0, 1, 6, 2],
             [2, 0, 0, 5, 0, 0, 0, 1, 0, 2],
             [2, 0, 0, 0, 0, 1, 1, 1, 8, 2],
-            [2, 0, 8, 0, 0, 0, 5, 0, 0, 2],
+            [2, 0, 9, 0, 9, 0, 5, 0, 0, 2],
             [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
 
 
 # 戦闘画面の準備
-fightmanager = SantaGameFight.FightManager()
+fightmanager = fight.FightManager()
 
 draw_map(santa_direction)
 
