@@ -2,6 +2,12 @@ import tkinter
 import random
 import time
 
+# 初期フラグ
+flag_ax = False
+flag_money = False
+flag_toy = False
+flag_emergency = False
+
 
 class FightManager:
     # コンストラクタ
@@ -32,7 +38,8 @@ class FightManager:
 
     # 戦闘開始
 
-    def fight_start(self, map_data, x, y, santa, flag_emergency):
+    def fight_start(self, map_data, x, y, santa):
+        global flag_emergency
         self.dialog.place(x=10, y=10)
         self.map_data = map_data
         self.santa_x = x
@@ -73,7 +80,8 @@ class FightManager:
         self.do_turn(-1)
 
     # 戦闘処理
-    def do_turn(self, santa_atk, flag_money):
+    def do_turn(self, santa_atk):
+        global flag_money
         # 主人公のターン
         enemy_dfs = self.enemy.get_dfs()
         if santa_atk < 0:
@@ -104,7 +112,6 @@ class FightManager:
             self.fbutton["state"] = "normal"
             self.rbutton["state"] = "normal"
             self.fight_win()
-            return
         # 敵のターン
         time.sleep(1)  # 2秒待ち
         santa_dfs = self.santa.get_dfs()
@@ -119,13 +126,6 @@ class FightManager:
             labeltext = labeltext + "\n\n敵の攻撃"
             self.label["text"] = labeltext
             self.dialog.update()
-            if self.santa.hp < 1:
-                time.sleep(1)  # 2秒待ち
-                self.fight_lose()
-            else:
-                #　ボタンを有効化して次のターンへ
-                self.fbutton["state"] = "normal"
-                self.rbutton["state"] = "normal"
             # 敵の攻撃の結果表示
             time.sleep(1)  # 2秒待ち
             enemy_atk = self.enemy.get_atk()
@@ -202,8 +202,8 @@ class Character:
         return self.hp
 
     # # 名前を求める
-    # def get_name(self):
-    #     return self.name
+    def get_name(self):
+        return self.name
 
 # サンタクラス
 
