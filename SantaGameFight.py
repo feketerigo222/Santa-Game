@@ -16,7 +16,7 @@ class FightManager:
         self.dialog.place(x=10, y=10)
         self.canvas = tkinter.Canvas(self.dialog, width=820, height=434)
         self.canvas.place(x=0, y=0)
-        self.canvas.create_rectangle(0, 0, 620, 434, fill="black")
+        self.canvas.create_rectangle(0, 0, 640, 448, fill="black")
         # ボタン作成
         self.fbutton = tkinter.Button(self.dialog, text="攻撃")
         self.fbutton.place(x=180, y=340)
@@ -48,7 +48,7 @@ class FightManager:
         # 敵の画像を表示
         p = self.map_data[y][x]
         self.canvas.delete("all")
-        self.canvas.create_rectangle(0, 0, 620, 434, fill="black")
+        self.canvas.create_rectangle(0, 0, 640, 448, fill="black")
         if flag_emergency == True and p == 8:
             self.canvas.create_image(180, 160, image=self.images[2])
         else:
@@ -161,7 +161,7 @@ class FightManager:
     def fight_lose(self):
         canvas = tkinter.Canvas(self.dialog, width=820, height=434)
         canvas.place(x=0, y=0)
-        canvas.create_rectangle(0, 0, 620, 434, fill="red")
+        canvas.create_rectangle(0, 0, 640, 448, fill="red")
         canvas.create_text(300, 200, fill="white", font=("MS ゴシック", 15), text="""勇者は負けてしまった
         最初からやり直してくれたまえ""")
 
