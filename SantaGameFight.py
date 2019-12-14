@@ -12,11 +12,11 @@ flag_emergency = False
 class FightManager:
     # コンストラクタ
     def __init__(self):
-        self.dialog = tkinter.Frame(width=820, height=434)
+        self.dialog = tkinter.Frame(width=820, height=448)
         self.dialog.place(x=10, y=10)
-        self.canvas = tkinter.Canvas(self.dialog, width=820, height=434)
+        self.canvas = tkinter.Canvas(self.dialog, width=820, height=448)
         self.canvas.place(x=0, y=0)
-        self.canvas.create_rectangle(0, 0, 640, 448, fill="black")
+        self.canvas.create_rectangle(0, 0, 640, 460, fill="black")
         # ボタン作成
         self.fbutton = tkinter.Button(self.dialog, text="攻撃")
         self.fbutton.place(x=180, y=340)
