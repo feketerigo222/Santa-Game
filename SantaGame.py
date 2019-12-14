@@ -18,7 +18,7 @@ def draw_map(santa_direction):
             p = map_data[y][x]
             if p >= 8:
                 p = 8
-            canvas.create_image(x * 64 + 31, y * 64 + 31, image=mapImages[p])
+            canvas.create_image(x * 64 + 32, y * 64 + 32, image=mapImages[p])
 
     # サンタ表示
     canvas.create_image(santa_x * 64 + 31, santa_y * 64 +
@@ -117,7 +117,7 @@ def click_button_right():
 
 def ending():
     canvas.delete("all")
-    canvas.create_rectangle(0, 0, 620, 434, fill="black")
+    canvas.create_rectangle(0, 0, 640, 448, fill="black")
     canvas.create_text(300, 200, fill="white", font=(
         "MS ゴシック", 15), text="""ゴールおめでとう。
         
@@ -136,13 +136,13 @@ def ending():
 # ウィンドウ作成
 root = tkinter.Tk()
 root.title("Santa Game")
-root.minsize(840, 454)
+root.minsize(840, 550)
 root.option_add("*font", ["メイリオ", 14])
 
 # キャンバス作成
-canvas = tkinter.Canvas(width=620, height=434)
+canvas = tkinter.Canvas(width=640, height=448)
 canvas.place(x=10, y=10)
-canvas.create_rectangle(0, 0, 620, 434, fill="gray")
+canvas.create_rectangle(0, 0, 640, 448, fill="gray")
 
 # ボタン配置
 button_up = tkinter.Button(text="↑")
