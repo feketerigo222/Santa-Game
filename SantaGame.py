@@ -112,6 +112,7 @@ def click_button_right():
     santa_direction = 1
     check_move(santa_x+1, santa_y, santa_direction)
 
+
 # エンディング表示
 
 
@@ -136,13 +137,13 @@ def ending():
 # ウィンドウ作成
 root = tkinter.Tk()
 root.title("Santa Game")
-root.minsize(840, 550)
+root.minsize(1500, 1000)
 root.option_add("*font", ["メイリオ", 14])
 
 # キャンバス作成
-canvas = tkinter.Canvas(width=640, height=448)
+canvas = tkinter.Canvas(width=960, height=640)
 canvas.place(x=10, y=10)
-canvas.create_rectangle(0, 0, 640, 448, fill="gray")
+canvas.create_rectangle(0, 0, 960, 640, fill="gray")
 
 # ボタン配置
 button_up = tkinter.Button(text="↑")
@@ -157,6 +158,7 @@ button_left["command"] = click_button_left
 button_right = tkinter.Button(text="→")
 button_right.place(x=780, y=180)
 button_right["command"] = click_button_right
+
 
 # 画像データ読み込み
 # サンタ画像
@@ -176,20 +178,26 @@ mapImages = [tkinter.PhotoImage(file="img/map/map.png"),
              tkinter.PhotoImage(file="img/map/enemy.png")]
 
 # マップデータ
-MAX_WIDTH = 10
-MAX_HEIGHT = 7
-map_data = [[2, 0, 2, 2, 2, 2, 2, 2, 2, 2],
-            [2, 0, 0, 0, 3, 0, 0, 1, 4, 2],
-            [2, 0, 4, 2, 2, 1, 0, 1, 6, 2],
-            [2, 0, 0, 5, 0, 0, 0, 1, 0, 2],
-            [2, 0, 0, 0, 0, 1, 1, 1, 8, 2],
-            [2, 0, 9, 0, 9, 0, 5, 0, 0, 2],
-            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
+MAX_WIDTH = 15
+MAX_HEIGHT = 10
+map_data = [[2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 0, 0, 0, 3, 0, 0, 1, 4, 2, 2, 2, 2, 2, 2],
+            [2, 0, 4, 2, 2, 1, 0, 1, 6, 2, 2, 2, 2, 2, 2],
+            [2, 0, 0, 5, 0, 0, 0, 1, 0, 2, 2, 2, 2, 2, 2],
+            [2, 0, 0, 0, 0, 1, 1, 1, 8, 2, 2, 2, 2, 2, 2],
+            [2, 0, 9, 0, 9, 0, 5, 0, 0, 2, 2, 2, 2, 2, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
 
 
 # 戦闘画面の準備
 fightmanager = fight.FightManager()
 
 draw_map(santa_direction)
+
+# ボタンでの移動
+canvas.bind("<Button-1>", click_button_down())
 
 root.mainloop()
