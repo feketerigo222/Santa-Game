@@ -199,10 +199,10 @@ fightmanager = fight.FightManager()
 draw_map(santa_direction)
 
 # ボタンでの移動
-root.bind("<Key-w>", click_button_up)
-root.bind("<Key-z>", click_button_down)
-root.bind("<Key-a>", click_button_left)
-root.bind("<Key-d>", click_button_right)
+root.bind("<Key-Up>", click_button_up)
+root.bind("<Key-Down>", click_button_down)
+root.bind("<Key-Left>", click_button_left)
+root.bind("<Key-Right>", click_button_right)
 
 
 root.mainloop()
