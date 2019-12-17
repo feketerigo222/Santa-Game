@@ -12,17 +12,19 @@ flag_emergency = False
 class FightManager:
     # コンストラクタ
     def __init__(self):
-        self.dialog = tkinter.Frame(width=820, height=448)
+        self.dialog = tkinter.Frame(width=960, height=640)
         self.dialog.place(x=10, y=10)
-        self.canvas = tkinter.Canvas(self.dialog, width=820, height=448)
+        self.canvas = tkinter.Canvas(self.dialog, width=960, height=640)
         self.canvas.place(x=0, y=0)
-        self.canvas.create_rectangle(0, 0, 640, 460, fill="black")
+        self.canvas.create_rectangle(0, 0, 960, 640, fill="black")
         # ボタン作成
-        self.fbutton = tkinter.Button(self.dialog, text="攻撃")
-        self.fbutton.place(x=180, y=340)
+        self.fbutton = tkinter.Button(
+            self.dialog, text="攻撃", font=("メイリオ", 20))
+        self.fbutton.place(x=280, y=550)
         self.fbutton["command"] = self.click_fight
-        self.rbutton = tkinter.Button(self.dialog, text="力をためる")
-        self.rbutton.place(x=320, y=340)
+        self.rbutton = tkinter.Button(
+            self.dialog, text="力をためる", font=("メイリオ", 20))
+        self.rbutton.place(x=580, y=550)
         self.rbutton["command"] = self.click_reserve
         # # 非表示
         self.dialog.place_forget()
@@ -33,8 +35,8 @@ class FightManager:
         self.canvas.create_image(180, 160, image=self.images[0])
         # ラベルを配置
         self.label = tkinter.Label(
-            self.dialog, text="ラベル", fg="white", bg="black", justify="left")
-        self.label.place(x=360, y=10)
+            self.dialog, text="ラベル", fg="white", bg="black", justify="left", font=("メイリオ", 20))
+        self.label.place(x=650, y=10)
 
     # 戦闘開始
 
@@ -48,11 +50,11 @@ class FightManager:
         # 敵の画像を表示
         p = self.map_data[y][x]
         self.canvas.delete("all")
-        self.canvas.create_rectangle(0, 0, 640, 448, fill="black")
+        self.canvas.create_rectangle(0, 0, 960, 640, fill="black")
         if flag_emergency == True and p == 8:
-            self.canvas.create_image(180, 160, image=self.images[2])
+            self.canvas.create_image(480, 300, image=self.images[2])
         else:
-            self.canvas.create_image(180, 160, image=self.images[p-8])
+            self.canvas.create_image(480, 300, image=self.images[p-8])
         self.label["text"] = ""
         # 敵のオブジェクトを作成
         if p == 8:
@@ -153,15 +155,18 @@ class FightManager:
     # 勝利
 
     def fight_win(self):
-        self.map_data[self.santa_y][self.santa_x] = 0
-        # 不審者フラグ立ってれば血痕に変える
+        global flag_emergency
+        if flag_emergency == True:
+            self.map_data[self.santa_y][self.santa_x] = 1
+        else:
+            self.map_data[self.santa_y][self.santa_x] = 0
         self.dialog.place_forget()
 
     # 敗北
     def fight_lose(self):
-        canvas = tkinter.Canvas(self.dialog, width=820, height=434)
+        canvas = tkinter.Canvas(self.dialog, width=960, height=640)
         canvas.place(x=0, y=0)
-        canvas.create_rectangle(0, 0, 640, 448, fill="red")
+        canvas.create_rectangle(0, 0, 960, 640, fill="red")
         canvas.create_text(300, 200, fill="white", font=("MS ゴシック", 15), text="""勇者は負けてしまった
         最初からやり直してくれたまえ""")
 
