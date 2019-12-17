@@ -49,11 +49,11 @@ def check_move(x, y, santa_direction):
         elif p == 3:
             if fight.flag_toy == False:
                 flag_label["text"] = "おもちゃがない"
-                flag_label.place(x=380, y=600)
+                flag_label.place(x=360, y=600)
                 return
             elif fight.flag_ax == False:
                 flag_label["text"] = "家に入る手段がない"
-                flag_label.place(x=380, y=600)
+                flag_label.place(x=360, y=600)
                 return
             else:
                 ending()
@@ -64,7 +64,7 @@ def check_move(x, y, santa_direction):
             canvas.delete("all")
             draw_map(santa_direction)
             flag_label["text"] = "お金を拾った"
-            flag_label.place(x=380, y=600)
+            flag_label.place(x=360, y=600)
         elif p == 5:
             fight.flag_ax = True
             santa.atk *= 3
@@ -72,7 +72,7 @@ def check_move(x, y, santa_direction):
             canvas.delete("all")
             draw_map(santa_direction)
             flag_label["text"] = "斧を手に入れた"
-            flag_label.place(x=380, y=600)
+            flag_label.place(x=360, y=600)
         elif p == 6:
             if fight.flag_money == True:
                 fight.flag_toy = True
@@ -80,7 +80,7 @@ def check_move(x, y, santa_direction):
                 canvas.delete("all")
                 draw_map(santa_direction)
                 flag_label["text"] = "おもちゃを買った"
-                flag_label.place(x=380, y=600)
+                flag_label.place(x=360, y=600)
             elif fight.flag_ax == True:
                 fight.flag_toy = True
                 fight.flag_emergency = True
@@ -88,10 +88,10 @@ def check_move(x, y, santa_direction):
                 canvas.delete("all")
                 draw_map(santa_direction)
                 flag_label["text"] = "素直におもちゃを渡さないあいつが悪いんだ…"
-                flag_label.place(x=380, y=600)
+                flag_label.place(x=200, y=600)
             else:
                 flag_label["text"] = "お金がない"
-                flag_label.place(x=380, y=600)
+                flag_label.place(x=360, y=600)
                 return
 
         elif p >= 8:
@@ -166,7 +166,7 @@ root.option_add("*font", ["メイリオ", 14])
 # キャンバス作成
 canvas = tkinter.Canvas(width=960, height=640)
 canvas.place(x=10, y=10)
-canvas.create_rectangle(0, 0, 960, 640, fill="gray")
+canvas.create_rectangle(0, 0, 960, 640, fill="white")
 
 # フラグ用ラベル
 flag_label = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 20),
