@@ -8,7 +8,6 @@ santa_y = 0
 santa = fight.Santa()
 santa_direction = 0
 
-
 # マップ描画
 
 
@@ -29,16 +28,19 @@ def draw_map(santa_direction):
 
 def check_move(x, y, santa_direction):
     global santa_x, santa_y
+    flag_label.place_forget()
     if x >= 0 and x < MAX_WIDTH and y >= 0 and y < MAX_HEIGHT:
         p = map_data[y][x]
         if p == 2:
             return
         elif p == 3:
             if fight.flag_toy == False:
-                # おもちゃがないのコメント
+                flag_label["text"] = "おもちゃがない"
+                flag_label.place(x=380, y=600)
                 return
             elif fight.flag_ax == False:
-                # 家に入れないのコメント
+                flag_label["text"] = "家に入る手段がない"
+                flag_label.place(x=380, y=600)
                 return
             else:
                 ending()
@@ -48,28 +50,35 @@ def check_move(x, y, santa_direction):
             map_data[y][x] = 0
             canvas.delete("all")
             draw_map(santa_direction)
+            flag_label["text"] = "お金を拾った"
+            flag_label.place(x=380, y=600)
         elif p == 5:
             fight.flag_ax = True
             santa.atk *= 3
             map_data[y][x] = 0
             canvas.delete("all")
             draw_map(santa_direction)
+            flag_label["text"] = "斧を手に入れた"
+            flag_label.place(x=380, y=600)
         elif p == 6:
             if fight.flag_money == True:
                 fight.flag_toy = True
-                # おもちゃを買ったのコメント
                 map_data[y][x] = 0
                 canvas.delete("all")
                 draw_map(santa_direction)
+                flag_label["text"] = "おもちゃを買った"
+                flag_label.place(x=380, y=600)
             elif fight.flag_ax == True:
                 fight.flag_toy = True
                 fight.flag_emergency = True
-                # おもちゃを強盗したのコメント
                 map_data[y][x] = 1
                 canvas.delete("all")
                 draw_map(santa_direction)
+                flag_label["text"] = "素直におもちゃを渡さないあいつが悪いんだ…"
+                flag_label.place(x=380, y=600)
             else:
-                # お金が無いのコメント
+                flag_label["text"] = "お金がない"
+                flag_label.place(x=380, y=600)
                 return
 
         elif p >= 8:
@@ -79,6 +88,7 @@ def check_move(x, y, santa_direction):
         santa_y = y
         canvas.delete("all")
         draw_map(santa_direction)
+
 
 # 上ボタンが押された
 
@@ -144,6 +154,10 @@ root.option_add("*font", ["メイリオ", 14])
 canvas = tkinter.Canvas(width=960, height=640)
 canvas.place(x=10, y=10)
 canvas.create_rectangle(0, 0, 960, 640, fill="gray")
+
+# フラグ用ラベル
+flag_label = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 20),
+                           fg="white", bg="black",)
 
 # # ボタン配置
 # button_up = tkinter.Button(text="↑")
