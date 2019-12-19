@@ -165,10 +165,20 @@ class FightManager:
     # 敗北
     def fight_lose(self):
         canvas = tkinter.Canvas(self.dialog, width=960, height=640)
+        canvas.create_rectangle(0, 0, 960, 640, fill="black")
         canvas.place(x=0, y=0)
-        canvas.create_rectangle(0, 0, 960, 640, fill="red")
-        canvas.create_text(300, 200, fill="white", font=("MS ゴシック", 15), text="""勇者は負けてしまった
-        最初からやり直してくれたまえ""")
+        # lose_label = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 60),
+        #                            fg="red", bg="black")
+        # lose_label["text"] = "YOU DIED"
+        # lose_label.place(x=300, y=280)
+        lose_label_up = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 100),
+                                      fg="red", bg="black")
+        lose_label_down = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 15),
+                                        fg="red", bg="black")
+        lose_label_up["text"] = "死"
+        lose_label_down["text"] = "D E A T H"
+        lose_label_up.place(x=420, y=200)
+        lose_label_down.place(x=440, y=350)
 
 # キャラクターの親クラス
 
