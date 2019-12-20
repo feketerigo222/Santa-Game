@@ -171,19 +171,19 @@ class FightManager:
         num = random.random()
         print(num)
         if num < 0.5:
-            lose_label = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 60),
-                                   fg="red", bg="black")
+            lose_label = tkinter.Label(width=0, height=0, text=" ", font=("BIZ UD明朝 Medium", 60),
+                                       fg="red", bg="black")
             lose_label["text"] = "YOU DIED"
-            lose_label.place(x=300, y=280)
+            lose_label.place(x=330, y=280)
         else:
-            lose_label_up = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 100),
-                                      fg="red", bg="black")
-            lose_label_down = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 15),
-                                        fg="red", bg="black")
+            lose_label_up = tkinter.Label(width=0, height=0, text=" ", font=("HGS行書体", 100),
+                                          fg="red", bg="black")
+            lose_label_down = tkinter.Label(width=0, height=0, text=" ", font=("BIZ UD明朝 Medium", 15),
+                                            fg="red", bg="black")
             lose_label_up["text"] = "死"
             lose_label_down["text"] = "D E A T H"
-            lose_label_up.place(x=420, y=200)
-            lose_label_down.place(x=440, y=350)
+            lose_label_up.place(x=420, y=230)
+            lose_label_down.place(x=440, y=360)
 
 # キャラクターの親クラス
 

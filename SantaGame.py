@@ -135,6 +135,12 @@ def click_button_right(event):
     santa_direction = 1
     check_move(santa_x+1, santa_y, santa_direction)
 
+# タイトル消去
+
+
+def forget_title(event):
+    frame.destroy()
+
 
 # エンディング表示
 
@@ -167,6 +173,25 @@ root.option_add("*font", ["メイリオ", 14])
 canvas = tkinter.Canvas(width=960, height=640)
 canvas.place(x=10, y=10)
 canvas.create_rectangle(0, 0, 960, 640, fill="white")
+
+# タイトル作成
+frame = tkinter.Frame(width=960, height=640)
+frame.place(x=10, y=10)
+title = tkinter.Canvas(frame, width=960, height=640)
+title.place(x=10, y=10)
+title.create_rectangle(0, 0, 960, 640, fill="black")
+title_label_up = tkinter.Label(frame, width=0, height=0, text=" ", font=("Arial Black", 70),
+                               fg="white", bg="black")
+title_label_down = tkinter.Label(frame, width=0, height=0, text=" ", font=("Arial", 20),
+                                 fg="white", bg="black")
+press_any_key = tkinter.Label(frame, width=0, height=0, text=" ", font=("Arial", 25),
+                              fg="white", bg="black")
+title_label_up["text"] = "DETROIT"
+title_label_down["text"] = "B   E   C   O   M   E       S   A   N   T   A"
+press_any_key["text"] = "-  Press any key to start  -"
+title_label_up.place(x=260, y=240)
+title_label_down.place(x=250, y=360)
+press_any_key.place(x=300, y=500)
 
 # フラグ用ラベル
 flag_label = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 20),
@@ -253,11 +278,14 @@ fightmanager = fight.FightManager()
 
 draw_map(santa_direction)
 
+
+# title消去
+root.bind("<Any-KeyPress>", forget_title)
+
 # ボタンでの移動
 root.bind("<Key-Up>", click_button_up)
 root.bind("<Key-Down>", click_button_down)
 root.bind("<Key-Left>", click_button_left)
 root.bind("<Key-Right>", click_button_right)
-
 
 root.mainloop()
