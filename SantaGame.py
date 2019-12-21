@@ -76,7 +76,7 @@ def check_move(x, y, santa_direction):
                 draw_map(santa_direction)
                 flag_label["text"] = "おもちゃを買った"
                 flag_label.place(x=360, y=600)
-            elif fight.flag_ax == True and fight.flag_money == False:
+            elif (fight.flag_ax == True and fight.flag_money == False):
                 fight.flag_toy = True
                 fight.flag_emergency = True
                 map_data[y][x] = 1
@@ -271,7 +271,7 @@ map_data = [[2, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
             [2, 0, 0, 2, 2, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2],
             [2, 2, 2, 0, 0, 0, 2, e[2], 0, 2, 2, 0, 2, 0, 2],
             [2, 0, 0, 0, 2, 0, 0, 2, 0, e[3], 0, e[4], 2, 0, 2],
-            [2, e[5], 2, 0, 0, e[6], 0, 2, 0, 2, 0, 2, 0, e[7], 2],
+            [2, e[5], 2, 0, 0, e[6], 2, 2, 0, 2, 0, 2, 0, e[7], 2],
             [2, 0, 0, e[8], 2, 0, 0, 0, 0, 2, 0, 0, e[9], 0, 2],
             [2, 5, 2, 0, 0, 2, 2, 2, 0, 0, e[10], 2, 0, 0, 2],
             [2, 0, e[11], 0, e[12], 6, 2, 0, 0, 0, 0, 0, 0, 0, 2],

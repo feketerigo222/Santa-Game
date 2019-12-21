@@ -156,8 +156,8 @@ class FightManager:
     # 勝利
 
     def fight_win(self):
-        global flag_emergency
-        if flag_emergency == True:
+        global flag_ax
+        if flag_ax == True:
             self.map_data[self.santa_y][self.santa_x] = 1
         else:
             self.map_data[self.santa_y][self.santa_x] = 0
