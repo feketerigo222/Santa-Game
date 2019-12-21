@@ -10,6 +10,7 @@ santa_x = 1
 santa_y = 0
 santa = fight.Santa()
 santa_direction = 0
+santa_i = 0
 
 # マップ描画
 
@@ -23,20 +24,12 @@ def draw_map(santa_direction):
             canvas.create_image(x * 64 + 32, y * 64 + 32, image=mapImages[p])
 
     # サンタ表示
-    canvas.create_image(santa_x * 64 + 31, santa_y * 64 +
-                        31, image=santaImages[santa_direction], tag="santa")
-    # i = 0
-    # j = 0
-    # while j < 100:
-    #     while i < 5:
-    #         canvas.create_image(santa_x * 64 + 31, santa_y * 64 + 31,
-    #                             image=santaImages[santa_direction][i], tag="santa")
-    #         canvas.update()
-    #         i += 1
-    #         if i == 4:
-    #             i = 0
-    #         time.sleep(0.25)
-
+    global santa_i
+    canvas.create_image(santa_x * 64 + 31, santa_y * 64 + 31,
+                        image=santaImages[santa_direction][santa_i], tag="santa")
+    santa_i += 1
+    if santa_i > 3:
+        santa_i = 0
 
 # 移動先のチェック
 
@@ -240,38 +233,14 @@ flag_label = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 20
 
 # 画像データ読み込み
 # サンタ画像
-
-santaImages = [tkinter.PhotoImage(file="img/santa/front.gif"),
-               tkinter.PhotoImage(file="img/santa/right.gif"),
-               tkinter.PhotoImage(file="img/santa/left.gif"),
-               tkinter.PhotoImage(file="img/santa/back.gif"), ]
-# santaImages = [[tkinter.PhotoImage(file="img/santa/front.gif", format="gif -index 0", master=root),
-#                 tkinter.PhotoImage(file="img/santa/front.gif",
-#                                    format="gif -index 1", master=root),
-#                 tkinter.PhotoImage(file="img/santa/front.gif",
-#                                    format="gif -index 2", master=root),
-#                 tkinter.PhotoImage(file="img/santa/front.gif", format="gif -index 3", master=root), ],
-
-#                [tkinter.PhotoImage(file="img/santa/right.gif", format="gif -index 0", master=root),
-#                 tkinter.PhotoImage(file="img/santa/right.gif",
-#                                    format="gif -index 1", master=root),
-#                 tkinter.PhotoImage(file="img/santa/right.gif",
-#                                    format="gif -index 2", master=root),
-#                 tkinter.PhotoImage(file="img/santa/right.gif", format="gif -index 3", master=root), ],
-
-#                [tkinter.PhotoImage(file="img/santa/left.gif", format="gif -index 0", master=root),
-#                 tkinter.PhotoImage(file="img/santa/left.gif",
-#                                    format="gif -index 1", master=root),
-#                 tkinter.PhotoImage(file="img/santa/left.gif",
-#                                    format="gif -index 2", master=root),
-#                 tkinter.PhotoImage(file="img/santa/left.gif", format="gif -index 3", master=root), ],
-
-#                [tkinter.PhotoImage(file="img/santa/back.gif", format="gif -index 0", master=root),
-#                 tkinter.PhotoImage(file="img/santa/back.gif",
-#                                    format="gif -index 1", master=root),
-#                 tkinter.PhotoImage(file="img/santa/back.gif",
-#                                    format="gif -index 2", master=root),
-#                 tkinter.PhotoImage(file="img/santa/back.gif", format="gif -index 3", master=root), ]]
+santaImages = [[tkinter.PhotoImage(file="img/santa/front0.png"), tkinter.PhotoImage(file="img/santa/front1.png"),
+                tkinter.PhotoImage(file="img/santa/front2.png"), tkinter.PhotoImage(file="img/santa/front3.png")],
+               [tkinter.PhotoImage(file="img/santa/right0.png"), tkinter.PhotoImage(file="img/santa/right1.png"),
+                tkinter.PhotoImage(file="img/santa/right2.png"), tkinter.PhotoImage(file="img/santa/right3.png")],
+               [tkinter.PhotoImage(file="img/santa/left0.png"), tkinter.PhotoImage(file="img/santa/left1.png"),
+                tkinter.PhotoImage(file="img/santa/left2.png"), tkinter.PhotoImage(file="img/santa/left3.png")],
+               [tkinter.PhotoImage(file="img/santa/back0.png"), tkinter.PhotoImage(file="img/santa/back1.png"),
+                tkinter.PhotoImage(file="img/santa/back2.png"), tkinter.PhotoImage(file="img/santa/back3.png")]]
 
 mapImages = [tkinter.PhotoImage(file="img/map/map.png"),
              tkinter.PhotoImage(file="img/map/blood.png"),
