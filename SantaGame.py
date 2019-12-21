@@ -1,5 +1,6 @@
 import tkinter
 import time
+import cv2
 import SantaGameFight as fight
 
 
@@ -147,25 +148,49 @@ def forget_title(event):
 
 def ending():
     canvas.delete("all")
-    canvas.create_rectangle(0, 0, 640, 448, fill="black")
-    canvas.create_text(300, 200, fill="white", font=(
-        "MS ゴシック", 15), text="""ゴールおめでとう。
-        
-        だが、君の戦いはまだ始まったばかりだ。
-        
-        
-                             …つづく？""")
+    ending_frame = tkinter.Frame(width=960, height=640)
+    ending_frame.place(x=10, y=10)
+    ending_canvas = tkinter.Canvas(ending_frame, width=960, height=640)
+    ending_canvas.place(x=0, y=0)
+    ending_canvas.create_rectangle(0, 0, 960, 640, fill="white")
+    ending_label_up = tkinter.Label(ending_frame, width=0, height=0, text=" ", font=("Chiller", 230),
+                                    fg="red", bg="white")
+    ending_label_down = tkinter.Label(ending_frame, width=0, height=0, text=" ", font=("Chiller", 230),
+                                      fg="red", bg="white")
+    ending_label_up["text"] = "Merry"
+    ending_label_down["text"] = "Christmas"
+    ending_label_up.place(x=240, y=0)
+    ending_label_down.place(x=40, y=340)
+    cap = cv2.VideoCapture('movie/shining.mp4')
 
-    # ボタンを無効か
-    button_up["state"] = "disabled"
-    button_down["state"] = "disabled"
-    button_left["state"] = "disabled"
-    button_right["state"] = "disabled"
+    fps = 60
+
+    if cap.isOpened() == False:
+        print("Error!")
+
+    while cap.isOpened():
+
+        ret, ending = cap.read()
+
+        if ret == True:
+
+            time.sleep(1/fps)
+            cv2.imshow('ending', ending)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+
+                break
+
+        else:
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
 
 
 # ウィンドウ作成
 root = tkinter.Tk()
-root.title("Santa Game")
+root.title("DETROIT BECOME SANTA")
 root.minsize(980, 660)
 root.option_add("*font", ["メイリオ", 14])
 
@@ -178,7 +203,7 @@ canvas.create_rectangle(0, 0, 960, 640, fill="white")
 frame = tkinter.Frame(width=960, height=640)
 frame.place(x=10, y=10)
 title = tkinter.Canvas(frame, width=960, height=640)
-title.place(x=10, y=10)
+title.place(x=0, y=0)
 title.create_rectangle(0, 0, 960, 640, fill="black")
 title_label_up = tkinter.Label(frame, width=0, height=0, text=" ", font=("Arial Black", 70),
                                fg="white", bg="black")
@@ -189,9 +214,9 @@ press_any_key = tkinter.Label(frame, width=0, height=0, text=" ", font=("Arial",
 title_label_up["text"] = "DETROIT"
 title_label_down["text"] = "B   E   C   O   M   E       S   A   N   T   A"
 press_any_key["text"] = "-  Press any key to start  -"
-title_label_up.place(x=260, y=240)
-title_label_down.place(x=250, y=360)
-press_any_key.place(x=300, y=500)
+title_label_up.place(x=240, y=220)
+title_label_down.place(x=230, y=340)
+press_any_key.place(x=280, y=480)
 
 # フラグ用ラベル
 flag_label = tkinter.Label(width=0, height=0, text=" ", font=("メイリオ", 20),
