@@ -231,7 +231,7 @@ class Character:
 class Santa(Character):
     def __init__(self):
         self.name = "サンタ"
-        self.hp = 30
+        self.hp = 50
         self.atk = 15
         self.dfs = 10
 
