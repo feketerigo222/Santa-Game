@@ -232,7 +232,7 @@ class Santa(Character):
     def __init__(self):
         self.name = "サンタ"
         self.hp = 50
-        self.atk = 15
+        self.atk = 25
         self.dfs = 10
 
 # 警官

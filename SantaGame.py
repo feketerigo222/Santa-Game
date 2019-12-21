@@ -78,12 +78,12 @@ def check_move(x, y, santa_direction):
         elif p == 6:
             if fight.flag_money == True:
                 fight.flag_toy = True
-                map_data[y][x] = 0
+                map_data[y][x] = 7
                 canvas.delete("all")
                 draw_map(santa_direction)
                 flag_label["text"] = "おもちゃを買った"
                 flag_label.place(x=360, y=600)
-            elif fight.flag_ax == True:
+            elif fight.flag_ax == True and fight.flag_money == False:
                 fight.flag_toy = True
                 fight.flag_emergency = True
                 map_data[y][x] = 1
@@ -164,7 +164,7 @@ def ending():
     ending_label_down.place(x=40, y=340)
     cap = cv2.VideoCapture('movie/shining.mp4')
 
-    fps = 60
+    fps = 250
 
     if cap.isOpened() == False:
         print("Error!")
@@ -280,7 +280,7 @@ mapImages = [tkinter.PhotoImage(file="img/map/map.png"),
              tkinter.PhotoImage(file="img/map/money.png"),
              tkinter.PhotoImage(file="img/map/ax.png"),
              tkinter.PhotoImage(file="img/map/toy.png"),
-             tkinter.PhotoImage(file="img/map/blood2.png"),
+             tkinter.PhotoImage(file="img/map/soldout.png"),
              tkinter.PhotoImage(file="img/map/enemy.png")]
 
 # 乱数で敵生成
