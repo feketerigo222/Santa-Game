@@ -2,5 +2,5 @@
 
 Make IT Advent Calendar 2019
 
-![title](img/readme/title.png)
-![play](img/readme/play.png)
+![title](img/readme/title.PNG)
+![play](img/readme/play.PNG)
