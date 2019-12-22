@@ -169,7 +169,6 @@ class FightManager:
         canvas.create_rectangle(0, 0, 960, 640, fill="black")
         canvas.place(x=0, y=0)
         num = random.random()
-        print(num)
         if num < 0.5:
             lose_label = tkinter.Label(width=0, height=0, text=" ", font=("BIZ UD明朝 Medium", 60),
                                        fg="red", bg="black")
@@ -232,7 +231,7 @@ class Santa(Character):
     def __init__(self):
         self.name = "サンタ"
         self.hp = 50
-        self.atk = 15
+        self.atk = 20
         self.dfs = 10
 
 # 警官
@@ -243,7 +242,7 @@ class Police(Character):
         self.name = "警察官"
         self.hp = 20
         self.atk = 15
-        self.dfs = 8
+        self.dfs = 5
 
 # ヤクザ
 
@@ -251,6 +250,6 @@ class Police(Character):
 class Yakuza(Character):
     def __init__(self):
         self.name = "ヤクザ"
-        self.hp = 10
+        self.hp = 15
         self.atk = 8
         self.dfs = 5
